@@ -38,6 +38,7 @@
                         <th>no</th>
                         <th>Tahun</th>
                         <th>Nominal</th>
+                        <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -47,6 +48,12 @@
                         <td>{{$i++}}</td>
                         <td>{{$data->tahun}}</td>
                         <td>{{$data->nominal}}</td>
+                        <td>
+                        <div class="btn-group btn-group-sm">
+                        <a href="/spp/edit/{{$data->id_spp}}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="/spp/hapus/{{$data->id_spp}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        </div>
+                        </td>
                     </tr>
                     @endforeach
                   </tbody>

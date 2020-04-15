@@ -21,4 +21,25 @@ class KelasController extends Controller
         $kelas->save();
         return redirect('/kelas');
     }
+    public function edit($id){
+        $kelas = Kelas::find($id);
+        return view('forms.kelas_edit', ['kelas' => $kelas]);
+    }
+    public function update($id, Request $request){
+        $this->validate($request,[
+        'nama_kelas' => 'required',
+        'kompotensi_keahlian' => 'required'
+        ]);
+        $kelas = Kelas::find($id);
+        $kelas->nama_kelas = $request->nama_kelas;
+        $kelas->kompotensi_keahlian = $request->kompotensi_keahlian;
+        $kelas->save();
+        return redirect('/kelas');
+    }
+    public function delete($id)
+    {
+        $kelas = Kelas::find($id);
+        $kelas->delete();
+        return redirect('/kelas');
+    }
 }

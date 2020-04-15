@@ -45,6 +45,10 @@
                         <td>{{$i++}}</td>
                         <td>{{$data->nama_kelas}}</td>
                         <td>{{$data->kompotensi_keahlian}}</td>
+                        <td><div class="btn-group btn-group-sm">
+                        <a href="/kelas/edit/{{$data->id_kelas}}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="/kelas/hapus/{{$data->id_kelas}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        </div></td>
                     </tr>
                     @endforeach
                   </tbody>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Auth;
+Use \Carbon\Carbon;
 use App\Siswa;
 use App\Pembayaran;
 
@@ -43,9 +44,27 @@ class HomeController extends Controller
         $rpl = $rpl1 + $rpl2 + $rpl3;
         $mm = Siswa::where('id_kelas','4')->count();
         $tkj = Siswa::where('id_kelas','5')->count();
+        $toi = Siswa::where('id_kelas','6')->count();
+        $titl = Siswa::where('id_kelas','7')->count();
+        $av = Siswa::where('id_kelas','8')->count();
 
+        $tanggal = Carbon::now()->format('Y-m-d');
+        $transaksi = Pembayaran::where("status","like","sudah dibayar")->where("tgl_bayar","like",$tanggal)->orderBy("tgl_bayar","ASC")->get();
+        $petugas = Auth::User()->get();
 
-        return view('home',['rpl' => $rpl,'tkj' => $tkj,'mm' => $mm]);
+        $transaksi1 = Pembayaran::where("status","like","sudah dibayar")->where("tgl_bayar","like",$tanggal)->orderBy("tgl_bayar","ASC")->count();
+
+        $tahun = Carbon::now()->format('Y');
+        $bulan = Carbon::now()->format('m');
+        $skrg = Carbon::now()->format('d');
+        $kemarin = $skrg - 1;
+        $yesterday = "$tahun-$bulan-$kemarin";
+        $transaksi2 = Pembayaran::where("status","like","sudah dibayar")->where("tgl_bayar","like",$yesterday)->orderBy("tgl_bayar","ASC")->count();
+
+        $siswa = Siswa::all()->count();
+
+        return view('home',['rpl' => $rpl,'tkj' => $tkj,'mm' => $mm ,'toi'=>$toi,'titl'=>$titl,'av'=>$av,'transaksi' =>$transaksi,'petugas'=>$petugas,'transaksi1'=>$transaksi1,
+        'transaksi2'=>$transaksi2,'siswa'=>$siswa]);
         }
     }
 }

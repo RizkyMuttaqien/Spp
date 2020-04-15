@@ -78,7 +78,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">TOI</span>
                 <span class="info-box-number">
-                  10
+                {{$toi}}
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -92,7 +92,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">TITL</span>
-                <span class="info-box-number">10</span>
+                <span class="info-box-number">{{$titl}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -109,7 +109,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">AV</span>
-                <span class="info-box-number">10</span>
+                <span class="info-box-number">{{$av}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -118,122 +118,104 @@
           <!-- /.col -->
         <!-- /.row -->
         </div>
-    <div class="row">
-      <div class="col-md-4">
-            <!-- Widget: user widget style 1 -->
-            <div class="card card-widget widget-user">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-danger">
-                <h3 class="widget-user-username">Rita Yuliati</h3>
-                <h5 class="widget-user-desc">-</h5>
-              </div>
-              <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="/image/rita.jpg" style="height:90px;width:90px;" alt="User Avatar">
-              </div>
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">Lahir:</h5>
-                      <span class="description-text">BANDUNG, 1965-07-15</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">NIP:</h5>
-                      <span class="description-text">196507151995032002</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="description-block">
-                      <h5 class="description-header">NUPTK:</h5>
-                      <span class="description-text">0047743644300063</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                </div>
-            </div>
-        </div>
-      </div>
+            <div class="row">
+<!-- TABLE: LATEST ORDERS -->
+<div class="col-8">
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">Transaksi Hari ini
+                </h3>
 
-        <div class="col-md-4">
-            <!-- Widget: user widget style 1 -->
-            <div class="card card-widget widget-user">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-info">
-                <h3 class="widget-user-username">Asep Tapip Yani</h3>
-                <h5 class="widget-user-desc">Kepala Sekolah</h5>
-              </div>
-              <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="/image/asep.jpg" style="height:90px;width:90px;" alt="User Avatar">
-              </div>
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">Lahir:</h5>
-                      <span class="description-text">GARUT, <br>1965-05-17</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">NIP:</h5>
-                      <span class="description-text">196505171988031009</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="description-block">
-                      <h5 class="description-header">NUPTK:</h5>
-                      <span class="description-text">2849743644200022</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nis</th>
+                        <th>Petugas</th>
+                        <th>Tanggal</th>
+                        <th>Bulan</th>
+                        <th>Tahun</th>
+                        <th>Jumlah</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $i = 1 @endphp
+                    @foreach ($transaksi as $data)
+                    <tr>
+                        <td>{{$i++}}</td>
+                        <td>{{$data->nis}}</td>
+                        @foreach ($petugas as $p)
+                        @if($p->id == $data->id)
+                        <td>{{$p->name}}</td>
+                        @endif
+                        @endforeach
+                        <td>{{$data->tgl_bayar}}</td>
+                        <td>{{$data->bulan_dibayar}}</td>
+                        <td>{{$data->tahun_bayar}}</td>
+                        <td>{{$data->jumlah_bayar}}</td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <a href="/transaksi" class="btn btn-sm btn-info float-left">Tambah Data Baru</a>
+                <a href="/histori" class="btn btn-sm btn-secondary float-right">lihat semua data</a>
+              </div>
+              <!-- /.card-footer -->
             </div>
-        </div>
-      </div>
+            <!-- /.card -->
+          </div>
+          <div class="col-md-4">
+            <!-- Info Boxes Style 2 -->
+            <div class="info-box mb-3 bg-info">
+              <span class="info-box-icon"><i class="fas fa-book"></i></span>
 
-      <div class="col-md-4">
-            <!-- Widget: user widget style 1 -->
-            <div class="card card-widget widget-user">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-green">
-                <h3 class="widget-user-username">ARNE HERLIANY</h3>
-                <h5 class="widget-user-desc">Kepala jurusan RPL</h5>
+              <div class="info-box-content">
+                <span class="info-box-text">Transaksi Hari ini</span>
+                <span class="info-box-number">{{$transaksi1}}</span>
               </div>
-              <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="/image/arne.jpg" style="height:90px;width:90px;" alt="User Avatar">
-              </div>
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">Lahir:</h5>
-                      <span class="description-text">BANDUNG, 1974-09-17</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">NIP:</h5>
-                      <span class="description-text">197409172005012010</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="description-block">
-                      <h5 class="description-header">NUPTK:</h5>
-                      <span class="description-text">5249752653300013</span>
-                    </div>
-                    <!-- /.description-block -->
-                  </div>
-                </div>
+              <!-- /.info-box-content -->
             </div>
-        </div>
+            <!-- /.info-box -->
+            <div class="info-box mb-3 bg-success">
+              <span class="info-box-icon"><i class="fas fa-book"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">transaksi kemarin</span>
+                <span class="info-box-number">{{$transaksi2}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+            <div class="info-box mb-3 bg-warning">
+              <span class="info-box-icon"><i class="far fa-user"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Jumlah siswa </span>
+                <span class="info-box-number">{{$siswa}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+
+          <!-- /.col -->
       </div>
     </div>
     </section>

@@ -23,7 +23,6 @@
               <div class="card-header">
                 <h3 class="card-title">
                 <a href="/siswa/create" type="button" class="btn bg-gradient-primary btn-sm"><i class="fas fa-plus"></i>Tambah Data</a>
-                <button type="button" class="btn  bg-gradient-warning btn-sm"><i class="fas fa-book"></i>Generate</button>
                 </h3>
                 <div class="card-tools">
                     <form action="/siswa/search">
@@ -50,7 +49,7 @@
                         <th>alamat</th>
                         <th>no_telp</th>
                         <th>nominal</th>
-                        <th>detail</th>
+                        <th>lihat detail</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -65,7 +64,13 @@
                         <td>{{$data->alamat}}</td>
                         <td>{{$data->no_telp}}</td>
                         <td>{{$data->nominal}}</td>
-                        <td><a href="/siswa/lihatSpp/{{$data->nis}}" class="btn btn-info"><i class="fas fa-eye"></i></a></td>
+                        <td>
+                        <div class="btn-group btn-group-sm">
+                        <a href="/siswa/lihatSpp/{{$data->nis}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                        <a href="/siswa/edit/{{$data->nis}}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                        <a href="/siswa/hapus/{{$data->nis}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        </div>
+                        </td>
                     </tr>
                     @endforeach
                   </tbody>

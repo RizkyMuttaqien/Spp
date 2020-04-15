@@ -73,4 +73,43 @@ class SiswaController extends Controller
         $transaksi = Pembayaran::where("nis","=",$nis)->get();
         return view('pageAdmin.showSpp', ['siswa' => $siswa],['transaksi' =>$transaksi]);
     }
+    public function edit($nis){
+        $siswa = Siswa::find($nis);
+        $kelas = Kelas::all();
+        $spp = SPP::all();
+        return view('forms.siswa_edit', ['siswa' => $siswa,'spp'=>$spp,'kelas' => $kelas]);
+    }
+    public function update($nis, Request $request){
+        $this->validate($request,[
+        'nisn' => 'required',
+        'nis' => 'required',
+        'nama' => 'required',
+        'id_kelas' => 'required',
+        'alamat' => 'required',
+        'no_telp' => 'required',
+        'id_spp' => 'required'
+        ]);
+        $siswa = Siswa::find($nis);
+        $siswa->nisn = $request->nisn;
+        $siswa->nis = $request->nis;
+        $siswa->nama = $request->nama;
+        $siswa->id_kelas = $request->id_kelas;
+        $siswa->alamat = $request->alamat;
+        $siswa->no_telp = $request->no_telp;
+        $siswa->id_spp = $request->id_spp;
+        $siswa->save();
+        return redirect('/siswa');
+    }
+    public function delete($nis)
+    {
+
+        $pembayaran = Pembayaran::where('nis','like',$nis);
+        $pembayaran->delete();
+
+        $siswa = Siswa::find($nis);
+        $siswa->delete();
+
+
+        return redirect('/siswa');
+    }
 }
